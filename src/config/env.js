@@ -1,11 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+// Declaração para utilizar a vairável de ambiente, mas caso ela não seja definida, realiza fallback e utiliza o valor 'development' por padrão
 const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
 
 dotenv.config({
@@ -17,7 +13,7 @@ export const env = process.env.NODE_ENV;
 export const dbConfig = {
   client: process.env.DB_CLIENT,
   host: process.env.DB_HOST,
-  // port: process.env.DB_PORT,
+  port: process.env.DB_PORT,
   name: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD
