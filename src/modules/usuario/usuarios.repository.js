@@ -2,7 +2,13 @@ import { conexaoDB } from "../../config/database.js";
 
 // Declaração das queries de busca no banco de dados - operações dentro da tabela de usuários
 export const usuariosRepository = {
-
+  // MÉTODOS PARA CRIAÇÃO DE USUÁRIOS
+  // Cria um novo registro de usuário com base nos dados passados
+  insertNewUser: async (data, trx = null) => {
+    const query = trx || conexaoDB;
+    return query('tb_users').insert(data);
+  },
+  
   // MÉTODOS DE BUSCA DE DADOS
   // Faz uma busca de todos os dados dentro da tabela de usuários
   selectAllUsers: async () => {
@@ -24,30 +30,22 @@ export const usuariosRepository = {
     return conexaoDB('tb_users').where(filter);
   },
 
-
-  // MÉTODOS PARA CRIAÇÃO DE USUÁRIOS
-  // Cria um novo registro de usuário com base nos dados passados
-  insertNewUser: async (data, trx = null) => {
-    const query = trx || conexaoDB;
-    return query('tb_users').insert(data);
-  },
-
   // MÉTODOS PARA ATUALIZAÇÃO DE DADOS
   // Atualiza dados do usuário
-  updateUserData: async (id, email, data, trx = null) => {
+  updateUserData: async (id, data, trx = null) => {
     const query = trx || conexaoDB;
-    return query('tb_users').where({user_id: id} || {email: email}).update(data);
+    return query('tb_users').where({user_id: id}).update(data);
   },
 
-  // Aplica o valor 'blocked' ao campo "user_status" para um soft delete
-  deactivateUser: async (id, email, trx = null) => {
+  // Aplica o valor 'blocked' ao campo "user_status" para realizar um soft delete sem de fato apagar o registro do usuário
+  deactivateUser: async ({id, email}, trx = null) => {
     const query = trx || conexaoDB;
     const currentDate = new Date();
     return query('tb_users').where({user_id: id} || {email: email}).update({user_status: 'blocked'}, {deleted_at: currentDate});
   },
 
   // Aplica o valor 'active' ao campo "user_status"
-  activateUser: async (id, email, trx = null) => {
+  activateUser: async ({id, email}, trx = null) => {
     const query = trx || conexaoDB;
     return query('tb_users').where({user_id: id} || {email: email}).update({user_status: 'active'});
   }

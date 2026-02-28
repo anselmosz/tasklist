@@ -6,5 +6,6 @@ const router = Router();
 router.get("/", usuariosController.getUsers);
 router.get("/:id", usuariosController.getUserByID);
 router.post("/", usuariosController.createUser);
+router.post("/:id", usuariosController.updateUserData);
 
 export default router;
