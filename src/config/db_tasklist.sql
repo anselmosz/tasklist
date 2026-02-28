@@ -16,6 +16,7 @@ CREATE TABLE tb_users(
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   deleted_at DATETIME NULL,
+  INDEX (deleted_at),
   UNIQUE(email)
 );
 
@@ -67,7 +68,3 @@ CREATE TABLE tb_task_assignments(
   FOREIGN KEY(task_id) REFERENCES tb_tasks(task_id) ON DELETE CASCADE,
   FOREIGN KEY(user_id) REFERENCES tb_users(user_id) ON DELETE CASCADE
 );
-
-
--- CREATE DATABASE audit_db;
--- USE audit_db;

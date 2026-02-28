@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=development nodemon index.js",
-    "staging": "NODE_ENV=staging nodemon index.js"
+    "start": "nodemon index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start staging": "cross-env NODE_ENV=staging nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,10 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "knex": "^3.1.0",
-    "mysql2": "^3.17.1",
-    "nodemon": "^3.1.11"
+    "mysql2": "^3.17.1"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "nodemon": "^3.1.14"
   }
 }
